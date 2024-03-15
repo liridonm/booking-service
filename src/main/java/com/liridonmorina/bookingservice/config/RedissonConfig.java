@@ -14,6 +14,7 @@ public class RedissonConfig {
 
     @Bean
     public RedissonClient redissonClient() {
+        System.out.println("Redis address " + address);
         Config config = new Config();
         config.useSingleServer()
                 .setAddress(address);

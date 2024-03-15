@@ -7,23 +7,25 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
-public class RedissonLockedExecutionService {
+public class RedissonLockedExecutionService implements LockService {
     private static final int LOCK_EXPIRATION_SECONDS = 30;
 
     private final RedissonClient redissonClient;
 
-    public <T> T runLocked(LockedFunction<T> function, String lockName) {
+    @Override
+    public <T> T runLocked(Callable<T> function, String lockName) {
         try {
             RLock lock = redissonClient.getLock(lockName);
             boolean isLocked = lock.tryLock(LOCK_EXPIRATION_SECONDS, TimeUnit.SECONDS);
 
             if (isLocked) {
                 try {
-                    return function.apply();
+                    return function.call();
                 } finally {
                     lock.unlock();
                 }

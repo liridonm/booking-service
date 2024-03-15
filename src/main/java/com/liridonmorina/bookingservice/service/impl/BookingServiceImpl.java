@@ -10,8 +10,8 @@ import com.liridonmorina.bookingservice.exceptions.ValidationException;
 import com.liridonmorina.bookingservice.mapper.BookingMapper;
 import com.liridonmorina.bookingservice.repository.BookingRepository;
 import com.liridonmorina.bookingservice.service.BookingService;
+import com.liridonmorina.bookingservice.service.LockService;
 import com.liridonmorina.bookingservice.service.PropertyService;
-import com.liridonmorina.bookingservice.service.RedissonLockedExecutionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -26,7 +26,7 @@ public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository repository;
     private final PropertyService propertyService;
-    private final RedissonLockedExecutionService redissonLockedExecutionService;
+    private final LockService lockService;
     private final BookingMapper mapper;
 
     @Override
@@ -106,7 +106,7 @@ public class BookingServiceImpl implements BookingService {
     private Booking saveBookingWithLock(Booking booking) {
         final String lockName = LOCK_NAME + booking.getProperty().getId();
 
-        return redissonLockedExecutionService.runLocked(() -> checkOverlappingAndUpdate(booking), lockName);
+        return lockService.runLocked(() -> checkOverlappingAndUpdate(booking), lockName);
     }
 
     private Booking checkOverlappingAndUpdate(Booking booking) {

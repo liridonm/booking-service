@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
-    @Query(value = "SELECT b FROM bookings b WHERE b.property.id = :propertyId AND b.status <> 'CANCELED' AND b.id <> :excludeId AND ((b.startDate <= :startDate AND b.endDate >= :startDate) OR (b.startDate <= :endDate AND b.endDate >= :endDate))")
+    @Query(value = "SELECT b FROM bookings b WHERE b.property.id = :propertyId AND b.status <> 'CANCELED' AND b.id <> :excludeId AND ((b.startDate <= :startDate AND b.endDate >= :startDate) OR (b.startDate <= :endDate AND b.endDate >= :endDate) OR (b.startDate >= :startDate AND b.endDate <= :endDate))")
     List<Booking> findDetectingOverlap(@Param("propertyId") Integer propertyId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("excludeId") Integer excludeId);
 
 }

@@ -12,8 +12,12 @@ Simple service of booking a property written in spring boot.
 - [x] Booking Overlaps
 - [x] Distributed Locking
 
+## Run with docker
+```shell
+docker-compose build && docker-compose up
+```
 
-## Running
+## Running without docker
 
 ```shell
 mvn clean install -DskipTests

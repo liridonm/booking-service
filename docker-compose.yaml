@@ -1,0 +1,29 @@
+version: '3'
+services:
+  api:
+    image: "morinaliridon/booking-service-api:1.0.3"
+    container_name: booking-service-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_REDIS_HOST: redis-master
+      CONFIG_REDIS_ADDRESS: redis://redis-master:6379
+    depends_on:
+      - redis-master
+    links:
+      - redis-master
+    networks:
+      - default-network
+  redis-master:
+    container_name: redis-master
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/bitnami/redis/data
+    networks:
+      - default-network
+networks:
+  default-network:

@@ -1,6 +1,7 @@
 package com.liridonmorina.bookingservice.exceptions;
 
 import com.liridonmorina.bookingservice.domain.dto.ResponseWrapper;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -28,7 +29,7 @@ public class ExceptionMessageHandler {
         return new ResponseEntity<>(ResponseWrapper.builder().success(false).status(HttpStatus.NOT_FOUND.value()).message(message).build(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({ValidationException.class})
+    @ExceptionHandler({ValidationException.class, ConstraintViolationException.class})
     public ResponseEntity<ResponseWrapper> validationException(ValidationException e) {
         String message = ObjectUtils.isEmpty(e.getMessage()) ? e.getLocalizedMessage() : e.getMessage();
         log.error("Data is not valid because " + message, e);
