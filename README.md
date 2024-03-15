@@ -41,3 +41,8 @@ Exception handling within the project architecture is realized through Spring Re
 In alignment with best practices for consistency and maintainability, all API responses within the project adhere to a standardized format encapsulated within the `ResponseEntity<ResponseWrapper>` type.
 
 This approach ensures uniformity across all endpoints, facilitating ease of comprehension and integration for developers interacting with the API. By encapsulating responses within a ResponseWrapper, essential metadata and payload data are structured consistently, enhancing clarity and simplifying error handling processes.
+
+### Swagger documentation
+
+All APIs within the project are thoroughly documented using Swagger, providing comprehensive insight into their functionality and usage. The API documentation serves as a centralized resource accessible at [API documentation](http://localhost:8080/swagger-ui.html).
+This documentation meticulously outlines each endpoint, including details such as request parameters, response formats, and example payloads. By leveraging Swagger, developers can seamlessly navigate through the available endpoints, facilitating rapid integration and ensuring alignment with project requirements and specifications.
