@@ -50,7 +50,7 @@ public class BookingController {
 
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Operation(summary = "Update an existing book", description = "FormatDate:`yyyy-MM-dd HH:mm`," +
             " Example:" +
             "`{\n" +
@@ -63,7 +63,8 @@ public class BookingController {
             "      \"id\": 1,\n" +
             "    }\n" +
             "  }`," )
-    public ResponseEntity<ResponseWrapper> update(@RequestBody BookingDTO bookingDto) {
+    public ResponseEntity<ResponseWrapper> update(@PathVariable("id") Integer id, @RequestBody BookingDTO bookingDto) {
+        bookingDto.setId(id);
         BookingDTO bookingDTO = service.update(bookingDto);
         return ResponseEntity.ok(new ResponseWrapper("Booking has been updated!", bookingDTO));
     }

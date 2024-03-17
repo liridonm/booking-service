@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    image: "morinaliridon/booking-service-api:1.0.3"
+    image: "morinaliridon/booking-service-api:1.0.0"
     container_name: booking-service-api
     ports:
       - "8080:8080"

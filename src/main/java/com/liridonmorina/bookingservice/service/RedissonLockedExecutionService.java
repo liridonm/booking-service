@@ -1,6 +1,5 @@
 package com.liridonmorina.bookingservice.service;
 
-import com.liridonmorina.bookingservice.config.LockedFunction;
 import com.liridonmorina.bookingservice.exceptions.BookingServiceException;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RLock;
